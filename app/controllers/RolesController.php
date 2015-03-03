@@ -10,7 +10,7 @@ class RolesController extends \BaseController {
 	public function index()
 	{
 		//
-		$roles = Role::where('eliminado', '=', 0)->get();
+		$roles = Role::all();
 
 		return View::make('roles.index')
 			->with('roles', $roles);
@@ -49,8 +49,8 @@ class RolesController extends \BaseController {
 		}else{
 
 			$role = new Role();
-			$role->nombre = Input::get('nombre');
-			$role->descripcion = Input::get('descripcion');
+			$role->name = Input::get('name');
+			
 
 
 			$role->save();
@@ -114,8 +114,7 @@ class RolesController extends \BaseController {
 		}else{
 
 			$role = Role::find($id);
-			$role->nombre = Input::get('nombre');
-			$role->descripcion = Input::get('descripcion');
+			$role->name = Input::get('name');
 			$role->save();
 
 		
@@ -136,10 +135,7 @@ class RolesController extends \BaseController {
 	{
 		//
 		$role = Role::find($id);
-		$role->eliminado = 1;
-		$fecha = new dateTime('now');
-		$role->deleted_at = $fecha;
-		$role->save();
+		$role->delete();
 
 		return Redirect::to('roles')
 			->with('message', 'Role Eliminado.');

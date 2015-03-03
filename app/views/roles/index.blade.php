@@ -42,7 +42,6 @@
 					<tr>
 						<td>ID</td>
 						<td>Nombre</td>
-						<td>Descripción</td>
 						<td>Opciones</td>
 					</tr>
 				</thead>
@@ -50,9 +49,7 @@
 					@foreach($roles as $role)
 						<tr>
 							<td>{{$role->id}}</td>
-							<td>{{$role->nombre}}</td>
-							<td>{{$role->descripcion}}
-							</td>
+							<td>{{$role->name}}</td>
 							<td>
 
 								{{HTML::link('roles/'.$role->id, 'Ver Rol', ['class' => 'btn btn-small btn-warning'])}}
@@ -78,7 +75,7 @@
 	<!-- El botón para crear una nueva categoria -->
 	<div class="row">
 		<hr>
-		{{HTML::link('roles/create', 'Nuevo Rol', 
+		{{HTML::link('roles/create', 'Nuevo Role', 
 		['class' => 'btn btn-primary'])}}
 	</div>
 

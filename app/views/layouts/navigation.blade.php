@@ -21,8 +21,9 @@
 
         @else
            
-          
-        
+             <li>{{HTML::link('roles', 'Roles')}}</li>
+            <li>{{HTML::link('users', 'Usuarios')}}</li>
+            
         @endif
     
     </ul>   

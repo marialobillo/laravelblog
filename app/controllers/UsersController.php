@@ -10,7 +10,7 @@ class UsersController extends \BaseController {
 	public function index()
 	{
 		//
-		$users = User::where('eliminado', '=', 0)->get();
+		$users = User::all();
 
 		return View::make('users.index')
 			->with('users', $users);

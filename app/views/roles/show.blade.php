@@ -13,9 +13,8 @@
 		<div class="row">
 		<div class="col-md-10">
 			<strong>Nombre:</strong>
-			<p>{{$role->nombre}}</p>
-			<strong>Descripción:</strong>
-			<p>{{$role->descripcion}}</p>
+			<p>{{$role->name}}</p>
+			
 		</div>
 	</div>
 

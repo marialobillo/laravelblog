@@ -34,14 +34,10 @@
 				]
 				)}}
 				<div class="form-group">
-					{{Form::label('nombre', 'Nombre')}}
-					{{Form::text('nombre', Input::old('nombre'),['class' => 'form-control'])}}
+					{{Form::label('name', 'Name')}}
+					{{Form::text('name', Input::old('name'),['class' => 'form-control'])}}
 				</div>
-				<div class="form-group">
-					{{Form::label('descripcion', 'Descripción')}}
-					{{Form::textarea('descripcion', Input::old('descripcion'), ['class' => 'form-control'])}}
-				</div>	
-			
+				
 				{{Form::submit('Editar Role', ['class' => 'btn btn-success'])}}
 				{{Form::close()}}
 			</div>
