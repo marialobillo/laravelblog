@@ -27,25 +27,14 @@ class UsersController extends \BaseController {
 	{
 		//
 		$roles = array();
-		foreach(Role::where('eliminado', '=', 0)->get() as $role){
-			$roles[$role->id] = $role->nombre;
+		foreach(Role::all() as $role){
+			$roles[$role->id] = $role->name;
 		}
 
-		$acis = array();
-		foreach(Aci::where('eliminado', '=', 0)->get() as $aci){
-			$acis[$aci->id] = $aci->nombre;
-		}
-
-		$tiposuser = array();
-		foreach(TiposUser::where('eliminado', '=', 0)->get() as $tipo){
-			$tiposuser[$tipo->id] = $tipo->nombre;
-		}
 
 
 		return View::make('users.create')
-			->with('roles', $roles)
-			->with('acis', $acis)
-			->with('tiposuser', $tiposuser);
+			->with('roles', $roles);
 
 
 	}
@@ -69,42 +58,21 @@ class UsersController extends \BaseController {
 
 		}else{
 
-			$code = str_random(60);
-			$username = Input::get('nombre');
-			$email = Input::get('email');
-
+			
 			$user = new User;
 			$user->role_id = Input::get('role_id');
-			$user->nombre = Input::get('nombre');
-			$user->apellidos = Input::get('apellidos');
-			$user->direccion = Input::get('direccion');
-			$user->localidad = Input::get('localidad');
-			$user->provincia = Input::get('provincia');
-			$user->pais = Input::get('pais');
+			$user->username = Input::get('username');
 			$user->email = Input::get('email');
 			$user->password = Hash::make(Input::get('password'));
-			$user->cedula = Input::get('cedula');
-			$user->code = $code;
-			//las dependencias
-			$user->aci_id = Input::get('aci_id');
-			$user->tiposuser_id = Input::get('tiposuser_id');
+			$user->active = 1;
 
 			$user->save();
 
 			if($user){
 
-				//Enviar el email de activación
-				Mail::send('emails.auth.activate', [
-					'link' => URL::route('account-activate-in', $code),
-					'username' => $username
-				],
-				function($message) use ($user){
-					$message->to($user->email, $user->username)
-						->subject('Activación de Cuenta');
-				});
 
 				return Redirect::route('home')
-					->with('global', 'Cuenta Creada. Hemos enviado un correo para activar el usuario.');
+					->with('global', 'Cuenta Creada. Muchas gracias.');
 			}
 
 
@@ -143,25 +111,13 @@ class UsersController extends \BaseController {
 
 		$roles = array();
 		foreach(Role::all() as $role){
-			$roles[$role->id] = $role->nombre;
-		}
-
-		$acis = array();
-		foreach(Aci::where('eliminado', '=', 0)->get() as $aci){
-			$acis[$aci->id] = $aci->nombre;
-		}
-
-		$tiposuser = array();
-		foreach(TiposUser::where('eliminado', '=', 0)->get() as $tipo){
-			$tiposuser[$tipo->id] = $tipo->nombre;
+			$roles[$role->id] = $role->name;
 		}
 
 
 		return View::make('users.edit')
 			->with('user', $user)
-			->with('roles', $roles)
-			->with('acis', $acis)
-			->with('tiposuser', $tiposuser);
+			->with('roles', $roles);
 	}
 
 
@@ -175,12 +131,10 @@ class UsersController extends \BaseController {
 	{
 		//
 		$rules = [
-			'nombre' => 'required',
-			'apellidos' => 'required',
-			'cedula' => 'required',
-			//'email' => 'required|email|unique:users',
+			'username' => 'required',
 			'email' => 'unique:users,email,'.$id
 		];
+
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()){
@@ -193,17 +147,9 @@ class UsersController extends \BaseController {
 
 			$user = User::find($id);
 			$user->role_id = Input::get('role_id');
-			//las dependencias
-			$user->aci_id = Input::get('aci_id');
-			$user->tiposuser_id = Input::get('tiposuser_id');
+			
 
-			$user->nombre = Input::get('nombre');
-			$user->apellidos = Input::get('apellidos');
-			$user->direccion = Input::get('direccion');
-			$user->localidad = Input::get('localidad');
-			$user->provincia = Input::get('provincia');
-			$user->cedula = Input::get('cedula');
-			$user->pais = Input::get('pais');
+			$user->username = Input::get('username');
 			$user->email = Input::get('email');			
 			$user->save();
 

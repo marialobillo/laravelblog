@@ -36,9 +36,7 @@
 				<thead>
 					<tr>
 						<td>ID</td>
-						<td>Nombre</td>
-						<td>Apellidos</td>
-						<td>Cedula</td>
+						<td>Username</td>
 						<td>Role</td>
 						<td>Opciones</td>
 					</tr>
@@ -47,12 +45,10 @@
 					@foreach($users as $user)
 						<tr>
 							<td>{{$user->id}}</td>
-							<td>{{$user->nombre}}</td>
-							<td>{{$user->apellidos}}</td>
-							<td>{{$user->cedula}}</td>
+							<td>{{$user->username}}</td>
 							<td>
 								<?php $role = Role::find($user->role_id); ?>
-								{{$role->nombre}}
+								{{$role->name}}
 							</td>
 							<td>
 
@@ -65,9 +61,7 @@
 								{{Form::submit('Eliminar Usuario', ['class' => 'btn btn-xs btn-danger'])}}
 								{{Form::close()}}
 
-								@if($user->code != '')
-									{{HTML::link('account-activate/'. $user->code, 'Activar Usuario', ['class' => 'btn btn-xs btn-primary'])}}
-								@endif
+								
 
 							</td>
 						</tr>
