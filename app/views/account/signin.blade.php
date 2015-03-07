@@ -8,7 +8,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-2">
+			<div class="col-md-6">
 				<div class="form">
 					{{Form::open(['route' => 'account-signin-post'])}}
 					<div class="form-group">
@@ -20,12 +20,12 @@
 					</div>
 					<div class="form-group">
 						{{Form::label('password', 'Contraseña')}}
-						{{Form::password('password',['class' => 'form-control'])}}
+						{{Form::password('password', ['class' => 'form-control'])}}
 						@if($errors->has('password'))
 							{{$errors->first('password')}}
 						@endif
 					</div>
-					{{Form::submit('Acceder a la Cuenta', ['class' => 'btn btn-success'])}}
+					{{Form::submit('Acceder a la Cuenta', ['class' => 'boton btn-success'])}}
 					{{Form::close()}}
 				</div>
 			</div>
