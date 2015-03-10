@@ -16,7 +16,7 @@
         @if(Auth::check())
 
             
-          
+          <li>{{HTML::link('account/signout', 'Signout')}}</li>
             
 
         @else

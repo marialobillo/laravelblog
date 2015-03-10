@@ -100,7 +100,7 @@ class AccountController extends BaseController{
 
 		Auth::logout();
 		if(!Auth::check()){
-			return Redirect::route('account-signin');
+			return Redirect::to('/');
 		}
 		
 	}

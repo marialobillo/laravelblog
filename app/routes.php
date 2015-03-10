@@ -35,10 +35,16 @@ Route::group(['before' => 'guest'], function(){
 	]);
 
 
-	
+});
 
-	
-	
 
+//Dentro de la cuenta!!!
+Route::group(['before' => 'auth|admin'], function(){
+
+	//Loguot de la cuenta, salir(GET)
+	Route::get('account/signout', [
+		'as' => 'account-signout',
+		'uses' => 'AccountController@getSignout'
+	]);
 
 });
