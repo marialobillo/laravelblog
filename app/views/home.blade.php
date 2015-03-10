@@ -6,7 +6,7 @@
 	<h1 class="text-center">
 		@if(Auth::check())
 			<h1 class="text-center">
-				Bienvenid@ {{Auth::user()->nombre}}
+				Bienvenid@ {{Auth::user()->username}}
 			</h1>
 			<p class="text-center">Panel Administrativo </p>
 		

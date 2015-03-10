@@ -23,7 +23,7 @@
            
              <li>{{HTML::link('roles', 'Roles')}}</li>
             <li>{{HTML::link('users', 'Usuarios')}}</li>
-            
+            <li>{{HTML::link('account/signin', 'Signin')}}</li>
         @endif
     
     </ul>   
