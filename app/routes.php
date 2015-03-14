@@ -8,6 +8,7 @@ Route::get('/', [
 
 Route::resource('roles', 'RolesController');
 Route::resource('users', 'UsersController');
+Route::resource('posts', 'PostController');
 
 
 
