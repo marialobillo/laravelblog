@@ -26,6 +26,8 @@ class PostController extends \BaseController {
 	public function create()
 	{
 		//
+		return View::make('posts.create');
+
 	}
 
 
@@ -37,6 +39,29 @@ class PostController extends \BaseController {
 	public function store()
 	{
 		//
+		$validator = Validator::make(Input::all(), Post::$rules);
+
+		if($validator->fails()){
+
+			return Redirect::to('posts/create')
+			->withErrors($validator)
+			->withInput();
+
+		}else{
+
+			$post = new Post();
+			$post->title = Input::get('title');
+			$post->body = Input::get('body');
+			$post->user_id = Auth::user()->id;
+			
+
+
+			$post->save();
+
+			return Redirect::to('posts')
+				->with('message', 'Post creado con éxito :)');
+
+		}
 	}
 
 
@@ -49,6 +74,10 @@ class PostController extends \BaseController {
 	public function show($id)
 	{
 		//
+		$post = Post::find($id);
+
+		return View::make('posts.show')
+			->with('post', $post);
 	}
 
 
@@ -61,6 +90,10 @@ class PostController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$post = Post::find($id);
+
+		return View::make('posts.edit')
+			->with('post', $post);
 	}
 
 
@@ -73,6 +106,27 @@ class PostController extends \BaseController {
 	public function update($id)
 	{
 		//
+		$validator = Validator::make(Input::all(), Post::$rules);
+
+		if($validator->fails()){
+
+			return Redirect::to('posts/'.$id.'/edit')
+			->withErrors($validator)
+			->withInput();
+
+		}else{
+
+			$post = Post::find($id);
+			$post->title = Input::get('title');
+			$post->body = Input::get('body');
+			$post->username = Auth::user()->id;
+			$post->save();
+
+		
+			return Redirect::to('posts')
+				->with('message', 'Post editado con éxito :)');
+
+		}
 	}
 
 
@@ -85,6 +139,11 @@ class PostController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$post = Post::find($id);
+		$post->delete();
+
+		return Redirect::to('posts')
+			->with('message', 'Post Eliminado.');
 	}
 
 
